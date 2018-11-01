@@ -11,3 +11,13 @@ playingWord = []
 for i in range(1): #from 0 (because i will have a default value of 0 unless specified), to 1 (because we only want the loop to run once)
     print(myWords[random.randint(0,wordsPresent)]) 
 
+
+#2nd function still in progress#
+def get_current_guess(secret_word,letters_guessed):#secret_word is a string and letter_guessed is a list# 
+    for item in range(len(secret_word):
+        for letter in secret_word:
+            if letters_guessed[i] != secret_word[i]:
+                     word= secret_word.replace("*")
+                    return word
+                    
+#this will check every letter in the word and if they are not there it will replace them with a star#
