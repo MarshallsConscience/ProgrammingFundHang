@@ -1,1 +1,13 @@
+import random #import random function, to enable program to pick random index from list of words
+
+with open('words.txt', 'r') as wordFile: # store wordFile as temporary variable using 'with' keyword, used built in function 'open' to open the text as readable 'r'
+    myWords = [line.strip() for line in wordFile] #set the value of each line in the text file, stripped of all whitespace and set to variable 'myWords'
+
+    wordsPresent = len(myWords) #using the index count
+print("There are " + str(wordsPresent) + " words in the file")
+
+playingWord = []
+
+for i in range(1): #from 0 (because i will have a default value of 0 unless specified), to 1 (because we only want the loop to run once)
+    print(myWords[random.randint(0,wordsPresent)]) 
 
