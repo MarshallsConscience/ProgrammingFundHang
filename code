@@ -26,4 +26,4 @@ def get_current_guess(secret_word,letters_guessed):
 print (get_current_guess(word,list1))
 
                     
-#this will check every letter in the word and if they are not there it will replace them with a star#
+#this will check every letter in the word and if they are not there it will replace them with a _#
