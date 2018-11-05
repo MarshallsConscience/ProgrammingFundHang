@@ -12,12 +12,18 @@ for i in range(1): #from 0 (because i will have a default value of 0 unless spec
     print(myWords[random.randint(0,wordsPresent)]) 
 
 
-#2nd function still in progress#
-def get_current_guess(secret_word,letters_guessed):#secret_word is a string and letter_guessed is a list# 
-    for item in range(len(secret_word):
-        for letter in secret_word:
-            if letters_guessed[i] != secret_word[i]:
-                     word= secret_word.replace("*")
-                    return word
+#2nd function still in progress completed#
+list1=["a","b","c","e"]
+word = "hello"
+
+def get_current_guess(secret_word,letters_guessed):
+    word2 = secret_word
+    for i in secret_word:
+        if i not in letters_guessed:
+            word2=word2.replace(i,"_")
+    return word2
+            
+print (get_current_guess(word,list1))
+
                     
 #this will check every letter in the word and if they are not there it will replace them with a star#
