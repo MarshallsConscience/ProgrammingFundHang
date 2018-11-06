@@ -33,9 +33,9 @@ print(load_words("words.txt"))
 
 
 
+#Part 1 1,2 functions complete with test data
 
-
-#2nd function still in progress completed#
+#2nd function  completed#
 list1=["a","b","c","e"]
 word = "hello"
 
@@ -45,8 +45,14 @@ def get_current_guess(secret_word,letters_guessed):
         if i not in letters_guessed:
             word2=word2.replace(i,"_")
     return word2
-            
-print (get_current_guess(word,list1))
-
-                    
+                               
 #this will check every letter in the word and if they are not there it will replace them with a _#
+#the function below will check if all the letters have been correctly guessed
+def is_secret_guessed(secret_word,letters_guessed):
+    for letter in secret_word:
+        if letter not in letters_guessed:
+            return False
+    return True    
+        
+print (is_secret_guessed(word,list1))
+
