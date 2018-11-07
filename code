@@ -28,6 +28,21 @@ print(choose_secret_word())
 ########## TASK 1 
 #Part 1 1,2 functions complete with test data
 
+#still in progress
+def first_game(secret_word):
+    print("Welcome Player to the interactive hangman game:")
+    x=(input("Do you want to play...Press y/n"))
+    try:
+        if x == "y":
+            print("time to play")
+        elif x == "n":
+            print("looks like you dont want to play")
+    except:
+            print("not recognized")
+    return "Take your first guess"
+print(first_game("chicken"))
+
+
 #2nd function  completed#
 list1=["a","b","c","e"]
 word = "hello"
