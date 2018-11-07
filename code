@@ -16,10 +16,10 @@ def load_words(fileName):
         
 def choose_secret_word():
     wordList = load_words("words.txt")[1]
-    y =  [random.choice(wordList)]
-    print(y)
+    secretWord =  [random.choice(wordList)]
+    return secretWord
     
-choose_secret_word()
+print(choose_secret_word())
 
 ########### TASK 2 End 
 
