@@ -1,37 +1,27 @@
-import random #import random function, to enable program to pick random index from list of words
-#TASK 2
 
+####### TASK 2
 
-def load_words(fileName): #working fine
-    
+import random
+
+def load_words(fileName): 
     try:
-        with open(fileName, 'r') as wordFile: # store wordFile as temporary variable using 'with' keyword, used built in function 'open' to open the text as readable 'r'
-            myWords = [line.strip() for line in wordFile] #set the value of each line in the text file, stripped of all whitespace and set to variable 'myWords'
+        with open(fileName, 'r') as wordFile:
+            myWords = [line.strip() for line in wordFile]
             wordsPresent = len(myWords)
-            message = "There are " + str(wordsPresent) + " words in the file"
             wordFile.close()
-        return(message + "\n\n" + str(myWords))
-        return str(myWords)
+            return wordsPresent,  myWords
+        choose_secret_word()
     except FileNotFoundError:
         print("This file does not exist!")
-
-playingWord = []
-
-#Work in progress
+        
 def choose_secret_word():
-    wordPlaying = []
-    wordsInFile = load_words(fileName)
-    wordsPresent = len(wordsInFile)
-    x =  wordsInFile[random.randint(0,wordsPresent)]
-    wordPlaying.append(x)
-    return wordPlaying
-  
-  
-print(choose_secret_word())
-print(load_words("words.txt"))
+    wordList = load_words("words.txt")[1]
+    y =  [random.choice(wordList)]
+    print(y)
+    
+choose_secret_word()
 
-
-
+########### TASK 2 End 
 
 #Part 1 1,2 functions complete with test data
 
