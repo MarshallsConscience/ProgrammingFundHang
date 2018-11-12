@@ -23,12 +23,12 @@ def choose_secret_word():
 print(choose_secret_word())
 
 ##########
-did some of your task,its saying lose_count+=1 is syntax error? 
+did some of task 2,its saying lose_count+=1 is syntax error? 
 
 def game_stats():
     if guesses >= 0 and is_secret_guessed == True:
         global win_count+=1
-    elif guesses >= 0 and is_secret_guessed == False:
+    elif guesses = 0 and is_secret_guessed == False:
         global lose_count+=1
     print("the total wins is: ",win_count,"you have won: ",(win_count/total_games,"%"))
     print("the total loss count is: ",lose_count, "you have lost: ",(lose_count/total_games),"%")
