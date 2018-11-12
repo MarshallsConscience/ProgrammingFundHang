@@ -22,15 +22,28 @@ def choose_secret_word():
     
 print(choose_secret_word())
 
+##########
+did some of your task,its saying lose_count+=1 is syntax error? 
+
+def game_stats():
+    if guesses >= 0 and is_secret_guessed == True:
+        global win_count+=1
+    elif guesses >= 0 and is_secret_guessed == False:
+        global lose_count+=1
+    print("the total wins is: ",win_count,"you have won: ",(win_count/total_games,"%"))
+    print("the total loss count is: ",lose_count, "you have lost: ",(lose_count/total_games),"%")
+
+print(game_stats())
 ########### TASK 2 End 
 
 
 ########## TASK 1 
 #Part 1 1,2 functions complete with test data
 
-#still in progress
+
 def first_game(secret_word):
-    print("Welcome Player to the interactive hangman game:")
+    if is_secret_guessed != True:
+        print("Welcome Player to the interactive hangman game:")
     x=(input("Do you want to play...Press y/n"))
     try:
         if x == "y":
@@ -41,7 +54,6 @@ def first_game(secret_word):
             print("not recognized")
     return "Take your first guess"
 print(first_game("chicken"))
-
 
 #2nd function  completed#
 list1=["a","b","c","e"]
