@@ -22,7 +22,7 @@ def choose_secret_word():
     
 print(choose_secret_word())
 
-##########
+############### will try to finish 
 did some of task 2,its saying lose_count+=1 is syntax error? 
 
 def game_stats():
@@ -41,41 +41,44 @@ print(game_stats())
 #Part 1 1,2 functions complete with test data
 
 
-def first_game(secret_word):
-    if is_secret_guessed != True:
-        print("Welcome Player to the interactive hangman game:")
-    x=(input("Do you want to play...Press y/n"))
-    try:
-        if x == "y":
-            print("time to play")
-        elif x == "n":
-            print("looks like you dont want to play")
-    except:
-            print("not recognized")
-    return "Take your first guess"
-print(first_game("chicken"))
-
 #2nd function  completed#
-
-list1=["a","b","c","e"]
+  #2nd function  completed#
+list1=["a","b","c","e","h","o"]
 word = "hello"
 
 def get_current_guess(secret_word,letters_guessed):
-    
     for i in secret_word:
         if i not in letters_guessed:
             secret_word=secret_word.replace(i,"_")
     return secret_word
     
 get_current_guess(word,list1)
-                               
-#this will check every letter in the word and if they are not there it will replace them with a _#
-#the function below will check if all the letters have been correctly guessed
+
+###this will check every letter in the word and if they are not there it will replace them with a _#
+###the function below will check if all the letters have been correctly guessed
+
 def is_secret_guessed(secret_word,letters_guessed):
     for letter in secret_word:
         if letter not in letters_guessed:
             return False
     return True    
-        
-print (is_secret_guessed(word,list1))
+######the one below needs adjusting
+def first_game(secret_word):
+    if is_secret_guessed != True:
+        print("Welcome Player to the interactive hangman game:")
+    user_input=(input("Do you want to play...Press y/n"))
+    try:
+        if user_input == "y":
+            print("time to play")
+        elif user_input == "n":
+            print("looks like you dont want to play")
+    except:
+            print("not recognized")
+    print("take your first guess")
+    global list1
+    list1.append(user_input)
 
+
+first_game()
+get_current_guess(word,list1)      
+is_secret_guessed(word,list1)
