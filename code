@@ -56,15 +56,18 @@ def first_game(secret_word):
 print(first_game("chicken"))
 
 #2nd function  completed#
+
 list1=["a","b","c","e"]
 word = "hello"
 
 def get_current_guess(secret_word,letters_guessed):
-    word2 = secret_word
+    
     for i in secret_word:
         if i not in letters_guessed:
-            word2=word2.replace(i,"_")
-    return word2
+            secret_word=secret_word.replace(i,"_")
+    return secret_word
+    
+get_current_guess(word,list1)
                                
 #this will check every letter in the word and if they are not there it will replace them with a _#
 #the function below will check if all the letters have been correctly guessed
