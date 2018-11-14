@@ -1,8 +1,48 @@
-
-####### TASK 2 will finish validation later
-### Task 2: 2.1, 2.2 complete
-
 import random
+
+list1=["a","b","c","e","h","o"]
+word = "hello"
+totalGames = 0
+wins = 0
+
+def is_secret_guessed(secret_word,letters_guessed):
+    for letter in secret_word:
+        if letter not in letters_guessed:
+            return False
+    return True
+
+def get_current_guess(secret_word,letters_guessed):
+    for i in secret_word:
+        if i not in letters_guessed:
+            secret_word=secret_word.replace(i,"_")
+    return secret_word
+
+def first_game(secret_word):
+    guesses_remaining = len(secret_word)
+    guesses_remaining += 3
+    list1 = []
+    
+    print("the secret word has ",len(secret_word)," characters")
+    while guesses_remaining > 0:
+        print("you have ",guesses_remaining," guesses left.")
+        user_input= input().lower()
+        list1.append((user_input[0]))
+        if user_input == secret_word:
+            print("you guessed correctly")
+            return quit_game("You win!")
+            break
+        guesses_remaining -=1 
+        print(get_current_guess(secret_word,list1))
+    if get_current_guess(secret_word,list1)== secret_word:
+        wins +=1
+        return quit_game("You win!")
+        
+    elif is_secret_guessed(secret_word,list1) == True:
+        wins +=1
+        return quit_game("You win!")
+    else:
+        return quit_game("You lose..")
+    
 
 def load_words(fileName): 
     try:
@@ -20,70 +60,37 @@ def choose_secret_word():
     secretWord =  [random.choice(wordList)]
     return secretWord
     
-print(choose_secret_word())
+#print(choose_secret_word())
 
-############### will try to finish 
-did some of task 2,its saying lose_count+=1 is syntax error? 
-
-def game_stats():
-    if guesses >= 0 and is_secret_guessed == True:
-        global win_count+=1
-    elif guesses = 0 and is_secret_guessed == False:
-        global lose_count+=1
-    print("the total wins is: ",win_count,"you have won: ",(win_count/total_games,"%"))
-    print("the total loss count is: ",lose_count, "you have lost: ",(lose_count/total_games),"%")
-
-print(game_stats())
-########### TASK 2 End 
-
-
-########## TASK 1 
-#Part 1 1,2 functions complete with test data
-
-
-#2nd function  completed#
-  #2nd function  completed#
-list1=["a","b","c","e","h","o"]
-word = "hello"
-
-word = "hello"
-
-def is_secret_guessed(secret_word,letters_guessed):
-    for letter in secret_word:
-        if letter not in letters_guessed:
-            return False
-    return True 
-def get_current_guess(secret_word,letters_guessed):
-    for i in secret_word:
-        if i not in letters_guessed:
-            secret_word=secret_word.replace(i,"_")
-    return secret_word
-
-
-def first_game(secret_word):
-    guesses_remaining = len(secret_word)
-    guesses_remaining += 3
-    list1 = []
+def second_game():
+    wordPlaying = choose_secret_word()
+    first_game(wordPlaying)
     
-    print("the secret word has ",len(secret_word)," characters")
-    while guesses_remaining > 0:
-        print("you have ",guesses_remaining," guesses left.")
-        user_input= input().lower()
-        list1.append((user_input[0]))
-        if user_input == secret_word:
-            print("you guessed correctly")
-            return "you win"
-            break
-        guesses_remaining -=1 
-        print(get_current_guess(secret_word,list1))
-    if get_current_guess(secret_word,list1)== secret_word:
-        return "you win"
-    elif is_secret_guessed(secret_word,list1) == True:
-        return "you win"
-    else:
-        return "you lose"
-    
+def quit_game(msg):
+    print(msg)
+    global wins
+    wins +=1
+    quitGame = input("Shall we play again? y = yes, n = no:\n").lower()
+    if quitGame == "n":
+        print(game_stats(wins))
+    elif quitGame == "y":
+        second_game()
+    else: 
+        print("Please enter only y/n")
+
+def game_stats(wins): 
+    global totalGames
+    totalGames = totalGames
+    loses = (totalGames-wins)
+    try:
+        averageInt = int((wins/totalGames)*100)
+        averageFloa = float((wins%totalGames))
+        completeAv = averageInt+averageFloa
+        thanks = "Thank you for playing! Here are your stats."
+        message = (("Wins: ", wins), ("Loses: ", loses), ("Average percent of wins: ", completeAv))
+        return thanks, message
+    except ZeroDivisionError:
+        print("It seems as if you havent played any games! I cant divide by zero!")
+
 
 first_game(word)
-
-#take secret word and create it in to a list compare inside the first game fucntion and break if 
