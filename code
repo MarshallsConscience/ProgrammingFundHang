@@ -63,22 +63,28 @@ def is_secret_guessed(secret_word,letters_guessed):
             return False
     return True    
 ######the one below needs adjusting
+def get_current_guess(secret_word,letters_guessed):
+    for i in secret_word:
+        if i not in letters_guessed:
+            secret_word=secret_word.replace(i,"_")
+    return secret_word
+
+
 def first_game(secret_word):
-    if is_secret_guessed != True:
-        print("Welcome Player to the interactive hangman game:")
-    user_input=(input("Do you want to play...Press y/n"))
-    try:
-        if user_input == "y":
-            print("time to play")
-        elif user_input == "n":
-            print("looks like you dont want to play")
-    except:
-            print("not recognized")
-    print("take your first guess")
-    global list1
-    list1.append(user_input)
-
-
-first_game()
-get_current_guess(word,list1)      
-is_secret_guessed(word,list1)
+    guesses_remaining = len(secret_word)
+    guesses_remaining += 3
+    list1 = []
+    win = 0
+    while guesses_remaining > 0:
+        print("you have ",guesses_remaining," guesses left.")
+        user_input= input()
+        list1.append((user_input))
+        if user_input == secret_word:
+            print("you guesses correctly")
+            break
+        guesses_remaining -=1 
+        print(get_current_guess(secret_word,list1))
+        if get_current_guess(secret_word,list1)== secret_word:
+            print("you won")
+            win+=1
+        return win
