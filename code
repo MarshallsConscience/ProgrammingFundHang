@@ -45,7 +45,7 @@ print(game_stats())
   #2nd function  completed#
 list1=["a","b","c","e","h","o"]
 word = "hello"
-word = "hello"
+
 word = "hello"
 
 def is_secret_guessed(secret_word,letters_guessed):
@@ -53,7 +53,6 @@ def is_secret_guessed(secret_word,letters_guessed):
         if letter not in letters_guessed:
             return False
     return True 
-
 def get_current_guess(secret_word,letters_guessed):
     for i in secret_word:
         if i not in letters_guessed:
@@ -65,11 +64,12 @@ def first_game(secret_word):
     guesses_remaining = len(secret_word)
     guesses_remaining += 3
     list1 = []
+    
     print("the secret word has ",len(secret_word)," characters")
     while guesses_remaining > 0:
         print("you have ",guesses_remaining," guesses left.")
-        user_input= input()
-        list1.append((user_input))
+        user_input= input().lower()
+        list1.append((user_input[0]))
         if user_input == secret_word:
             print("you guessed correctly")
             return "you win"
@@ -86,3 +86,4 @@ def first_game(secret_word):
 
 first_game(word)
 
+#take secret word and create it in to a list compare inside the first game fucntion and break if 
