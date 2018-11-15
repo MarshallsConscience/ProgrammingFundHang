@@ -1,43 +1,55 @@
-import random
+import random 
+"""" Put explanation here """
 
-list1=["a","b","c","e","h","o"]
-word = "hello"
+
+"""" Put explanation here """
+lettersUsed=[]
+word = "elephant"
 totalGames = 0
 wins = 0
+###########################################################################################################################Check global placement 
 
 def is_secret_guessed(secret_word,letters_guessed):
+    """" Put explanation here """
     for letter in secret_word:
         if letter not in letters_guessed:
             return False
     return True
 
 def get_current_guess(secret_word,letters_guessed):
+    """" Put explanation here """
     for i in secret_word:
         if i not in letters_guessed:
             secret_word=secret_word.replace(i,"_")
     return secret_word
 
 def first_game(secret_word):
+    """" Put explanation here """
+    global lettersUsed
+    lettersUsed.clear()
     guesses_remaining = len(secret_word)
     guesses_remaining += 3
-    list1 = []
     
-    print("the secret word has ",len(secret_word)," characters")
+    
+    print("The secret word has ",len(secret_word)," characters")
     while guesses_remaining > 0:
-        print("you have ",guesses_remaining," guesses left.")
+        print("You have ",guesses_remaining," guesses left.")
         user_input= input().lower()
-        list1.append((user_input[0]))
+        while user_input == "":
+            print("You can't have an empty guess! \nTry again")
+            user_input= input().lower()
+        lettersUsed.append((user_input[0]))
         if user_input == secret_word:
-            print("you guessed correctly")
+            print("You guessed correctly")
             return quit_game("You win!")
             break
         guesses_remaining -=1 
-        print(get_current_guess(secret_word,list1))
-    if get_current_guess(secret_word,list1)== secret_word:
+        print(get_current_guess(secret_word,lettersUsed))
+    if get_current_guess(secret_word,lettersUsed)== secret_word:
         wins +=1
         return quit_game("You win!")
         
-    elif is_secret_guessed(secret_word,list1) == True:
+    elif is_secret_guessed(secret_word,lettersUsed) == True:
         wins +=1
         return quit_game("You win!")
     else:
@@ -45,52 +57,83 @@ def first_game(secret_word):
     
 
 def load_words(fileName): 
+    """" This function takes in one argument "filName" and checks if the file exists, if not it will print the error message.
+         If found it opens it in read mode and saves it as a variable "wordfile".
+         it reads each line and strips it of its whitespace, then assignes the value (now in a list form) to "myWords"
+         It then takes in the length of the list (how many items are present) and assigns the value to wordsPresent
+         the values returned are: the amount of words present & the list of words itself
+         It then calls the choose_secret_word() function.
+    """
     try:
         with open(fileName, 'r') as wordFile:
             myWords = [line.strip() for line in wordFile]
             wordsPresent = len(myWords)
-            wordFile.close()
+            wordFile.close() ########################################################################### do I need to move this to after the except?
             return wordsPresent,  myWords
         choose_secret_word()
     except FileNotFoundError:
         print("This file does not exist!")
         
 def choose_secret_word():
+    """" Put explanation here """
     wordList = load_words("words.txt")[1]
-    secretWord =  [random.choice(wordList)]
+    randomWord =  [random.choice(wordList)]
+    secretWord = ''.join(randomWord)
     return secretWord
-    
-#print(choose_secret_word())
 
 def second_game():
+    """" Put explanation here """
     wordPlaying = choose_secret_word()
+    print(wordPlaying)###################################################################### REMOVE BEFORE HANDING IN #################
     first_game(wordPlaying)
     
 def quit_game(msg):
-    print(msg)
+    """" Put explanation here """
     global wins
-    wins +=1
-    quitGame = input("Shall we play again? y = yes, n = no:\n").lower()
-    if quitGame == "n":
-        print(game_stats(wins))
-    elif quitGame == "y":
-        second_game()
-    else: 
-        print("Please enter only y/n")
-
-def game_stats(wins): 
     global totalGames
-    totalGames = totalGames
+    totalGames +=1
+    if msg == "You win!":
+        wins +=1
+        print(msg)
+    else:
+        print(msg)
+     
+    while True:
+        quitGame = input("Shall we play again? y = yes, n = no:\n").lower()
+        if quitGame == "n":
+            print(game_stats(wins))
+            break
+        elif quitGame == "y":
+            second_game()
+            break
+        else:
+                print("Follow the rules! Please enter only y/n")
+
+def game_stats(wins):
+    """" Put explanation here """
     loses = (totalGames-wins)
     try:
         averageInt = int((wins/totalGames)*100)
         averageFloa = float((wins%totalGames))
         completeAv = averageInt+averageFloa
         thanks = "Thank you for playing! Here are your stats."
-        message = (("Wins: ", wins), ("Loses: ", loses), ("Average percent of wins: ", completeAv))
+        message = (("TotalGames",totalGames),("Wins", wins), ("Loses", loses), ("Average percent of wins", completeAv))
         return thanks, message
     except ZeroDivisionError:
         print("It seems as if you havent played any games! I cant divide by zero!")
 
 
 first_game(word)
+"""" Put explanation here """
+
+"""" 
+#FIXED Guessed array not cleared upon new game start (added lettersUsed.clear()) 
+#FIXED Other than y/n when asked to play again, need to ask again (small loop while answer not = y/n) 
+#FIXED Loses having minus value = total games not updating (moved updating totalGame +=1value from, game_stats to quit_game, fixed problem) 
+#FIXED When guess input it empty, error occurs (used “IndexError”, raise ) 
+ 
+Not notified when another duplicate letter has been input  
+Not told when more than one letter has been input (still  just takes first letter though) 
+When user has correctly guessed all letters, still don’t win unless I type in full word
+
+"""
