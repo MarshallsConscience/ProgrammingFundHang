@@ -30,11 +30,10 @@ def first_game(secret_word):
     #this function starts up the game by telling the user how many guesses they have
     #for this function i have given the the attempts being the length of the word plus 3 additional chances
     global lettersUsed
+    global wins
     lettersUsed.clear()
     guesses_remaining = len(secret_word)
     guesses_remaining += 3
-    
-    
     print("The secret word has ",len(secret_word)," characters")
     while guesses_remaining > 0:
         print("You have ",guesses_remaining," guesses left.")
@@ -49,15 +48,16 @@ def first_game(secret_word):
             break
         guesses_remaining -=1 
         print(get_current_guess(secret_word,lettersUsed))
-    if get_current_guess(secret_word,lettersUsed)== secret_word:
-        wins +=1
-        return quit_game("You win!")
-        
-    elif is_secret_guessed(secret_word,lettersUsed) == True:
+        for i in get_current_guess(secret_word,lettersUsed):
+            if get_current_guess(secret_word,lettersUsed) in secret_word:
+                wins +=1
+                return quit_game("You win!")     
+    if is_secret_guessed(secret_word,lettersUsed) == True:
         wins +=1
         return quit_game("You win!")
     else:
         return quit_game("You lose..")
+    
     
 
 def load_words(fileName): 
