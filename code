@@ -32,13 +32,15 @@ def first_game(secret_word):
     global lettersUsed
     global wins
     lettersUsed.clear()
-    guesses_remaining = len(secret_word)
-    guesses_remaining += 3
+    guesses_remaining = len(secret_word) + 3
+   
     
     print("The secret word has ",len(secret_word)," characters")
     while guesses_remaining > 0:
         print("You have ",guesses_remaining," guesses left.")
         user_input= input().lower()
+        if user_input[0] in lettersUsed:
+            print("you've already guessed this letter before")
         while user_input == "":
             print("You can't have an empty guess! \nTry again")
             guesses_remaining -=1
