@@ -82,7 +82,6 @@ def load_words(fileName):
             wordsPresent = len(myWords)
             wordFile.close() ########################################################################### do I need to move this to after the except?
             return wordsPresent,  myWords
-        choose_secret_word()
     except FileNotFoundError:
         print("This file does not exist!")
         
