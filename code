@@ -10,9 +10,8 @@ wins = 0
 ###########################################################################################################################Check global placement 
 
 def is_secret_guessed(secret_word,letters_guessed):
-    """" Put explanation here """
-    #this function takes every letter in secret word and then cross checks if it is in the list of letters guessed
-    #if a single letter is missing then the function returns false else it returns true.
+    """"this function takes every letter in secret word and then cross checks if it is in the list of letters guessed 
+    if a single letter is missing then the function returns false else it returns true. this function also clears the parameters of the game""""
     for letter in secret_word:
         if letter not in letters_guessed:
             return False
@@ -27,14 +26,17 @@ def get_current_guess(secret_word,letters_guessed):
     return secret_word
 
 def first_game(secret_word):
-    #this function starts up the game by telling the user how many guesses they have
+    """this function starts up the game and tells the user how many guesses they have
     #for this function i have given the the attempts being the length of the word plus 3 additional chances
+    it also prints how many guess the user has plus the the conditions for winning."""
+
     global lettersUsed
     global wins
     lettersUsed.clear()
     guesses_remaining = len(secret_word) + 3
    
-    
+    """the code below give the conditions of how the user will and the conditions of the input, such as the user cant give an empty space
+    it, the user cant repeat a letter and only takes the first character of any word written except the secret word written as a whole."""
     print("The secret word has ",len(secret_word)," characters")
     while guesses_remaining > 0:
         print("You have ",guesses_remaining," guesses left.")
