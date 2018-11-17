@@ -7,11 +7,12 @@ lettersUsed=[]
 word = "elephant"
 totalGames = 0
 wins = 0
-###########################################################################################################################Check global placement 
+ 
 
 def is_secret_guessed(secret_word,letters_guessed):
-    """"this function takes every letter in secret word and then cross checks if it is in the list of letters guessed 
-    if a single letter is missing then the function returns false else it returns true. this function also clears the parameters of the game""""
+    """this function takes every letter in secret word and then cross checks if it is in the list of letters guessed 
+    if a single letter is missing then the function returns false else it returns true. this function also clears the parameters of the game"""
+    
     for letter in secret_word:
         if letter not in letters_guessed:
             return False
@@ -41,10 +42,13 @@ def first_game(secret_word):
     while guesses_remaining > 0:
         print("You have ",guesses_remaining," guesses left.")
         user_input= input().lower()
-        if user_input[0] in lettersUsed:
-            print("you've already guessed this letter before")
         while user_input == "":
             print("You can't have an empty guess! \nTry again")
+            guesses_remaining -=1
+            print("You have ",guesses_remaining," guesses left.")
+            user_input= input().lower()
+        while user_input[0] in lettersUsed:
+            print("you've already guessed this letter before")
             guesses_remaining -=1
             print("You have ",guesses_remaining," guesses left.")
             user_input= input().lower()
@@ -98,8 +102,8 @@ def choose_secret_word():
 
 def second_game():
     """" Put explanation here """
+    
     wordPlaying = choose_secret_word()
-    print(wordPlaying)###################################################################### REMOVE BEFORE HANDING IN #################
     first_game(wordPlaying)
     
 def quit_game(msg):
@@ -139,16 +143,3 @@ def game_stats(wins):
 
 
 first_game(word)
-"""" Put explanation here """
-
-"""" 
-#FIXED Guessed array not cleared upon new game start (added lettersUsed.clear()) 
-#FIXED Other than y/n when asked to play again, need to ask again (small loop while answer not = y/n) 
-#FIXED Loses having minus value = total games not updating (moved updating totalGame +=1value from, game_stats to quit_game, fixed problem) 
-#FIXED When guess input it empty, error occurs (used “IndexError”, raise ) 
- 
-Not notified when another duplicate letter has been input  
-Not told when more than one letter has been input (still  just takes first letter though) 
-When user has correctly guessed all letters, still don’t win unless I type in full word
-
-"""
