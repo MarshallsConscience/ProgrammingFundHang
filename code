@@ -1,8 +1,11 @@
+Welcome to the interactive hangman game,which was designed by Maria Marshalls and Abdi Mohamud for Cw2.
+
+
 import random 
-"""" Put explanation here """
+This imports functions.
 
-
 """" Put explanation here """
+Our global values that that interact with the functions
 lettersUsed=[]
 word = "elephant"
 totalGames = 0
@@ -38,7 +41,7 @@ def first_game(secret_word):
    
     """the code below give the conditions of how the user will and the conditions of the input, such as the user cant give an empty space
     it, the user cant repeat a letter and only takes the first character of any word written except the secret word written as a whole."""
-     print("The secret word has ",len(secret_word)," characters")
+    print("The secret word has ",len(secret_word)," characters")
     while guesses_remaining > 0:
         print("You have ",guesses_remaining," guesses left.")
         user_input= input().lower()
