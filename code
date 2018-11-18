@@ -1,16 +1,18 @@
-Welcome to the interactive hangman game,which was designed by Maria Marshalls and Abdi Mohamud for Cw2.
-
+""" Welcome to the interactive hangman game, designed by Maria Marshall and Abdi Mohamud for Cw2.
+    To begin, just press run the program! If you would like to change the first word the player has to guess, 
+    change the value of "word", afther the first game has been played, if you choose 'y' when given the option
+    to play again, the secret word will be chosen at random, from a text file. You will be able to see your game stats
+    whe you decide to quit the game. Good luck!
+"""
 
 import random 
-This imports functions.
 
-"""" Put explanation here """
-Our global values that that interact with the functions
+"""" The global variable used in the game, each time a letter is (correctly) entered, it will be added to lettersUsed. """
 lettersUsed=[]
-word = "elephant"
 totalGames = 0
+word = "emmanuel"
 wins = 0
- 
+
 
 def is_secret_guessed(secret_word,letters_guessed):
     """this function takes every letter in secret word and then cross checks if it is in the list of letters guessed 
@@ -22,8 +24,8 @@ def is_secret_guessed(secret_word,letters_guessed):
     return True
 
 def get_current_guess(secret_word,letters_guessed):
-    #this function takes every letter that is not there then returns secret word with the missing letters being replaced with a _
-    #it does this by looping through every letter in secret word
+    """"this function takes every letter that is not there then returns secret word with the missing letters being replaced with a _
+    #it does this by looping through every letter in secret word"""
     for i in secret_word:
         if i not in letters_guessed:
             secret_word=secret_word.replace(i,"_")
@@ -36,8 +38,11 @@ def first_game(secret_word):
 
     global lettersUsed
     global wins
+
+    
     lettersUsed.clear()
     guesses_remaining = len(secret_word) + 3
+   
    
     """the code below give the conditions of how the user will and the conditions of the input, such as the user cant give an empty space
     it, the user cant repeat a letter and only takes the first character of any word written except the secret word written as a whole."""
@@ -45,35 +50,49 @@ def first_game(secret_word):
     while guesses_remaining > 0:
         print("You have ",guesses_remaining," guesses left.")
         user_input= input().lower()
-        if user_input == secret_word.lower():
-            print("You guessed correctly")
-            return quit_game("You win!")
         while user_input == "":
             print("You can't have an empty guess! \nTry again")
+            print(get_current_guess(secret_word,lettersUsed))
             guesses_remaining -=1
             print("You have ",guesses_remaining," guesses left.")
             user_input= input().lower()
-        while user_input[0] in lettersUsed:
+            if guesses_remaining <= 1:
+                return quit_game("Out of guesses. You lose...")
+   
+        while (user_input[0] in lettersUsed) and (user_input != secret_word):
             print("you've already guessed this letter before")
+            print(get_current_guess(secret_word,lettersUsed))
             guesses_remaining -=1
             print("You have ",guesses_remaining," guesses left.")
             user_input= input().lower()
-        while (len(user_input) != 1) and (user_input != secret_word.lower):#####################################!##!!!!!
-            print("You can't guess more than one letter unless you're trying to guess the secret word!")#####!!!!!
+            if guesses_remaining <= 1:
+                return quit_game("Out of guesses. You lose...")
+  
+        while (len(user_input) != 1) and (user_input != secret_word):
+            print("That was more than one letter, but it wasnt the secret word!\nI'll take '" + user_input[0] + "' as your guess" )
+            lettersUsed.append((user_input[0]))
+            print(get_current_guess(secret_word,lettersUsed))
             guesses_remaining -=1
             print("You have ",guesses_remaining," guesses left.")
-            user_input= input().lower()        
+            user_input= input().lower()
+            if guesses_remaining <= 1:
+                return quit_game("Out of guesses. You lose...")
+
         lettersUsed.append((user_input[0]))
-        guesses_remaining -=1 
+        guesses_remaining -=1
         print(get_current_guess(secret_word,lettersUsed))
+        
+        if user_input == secret_word:
+            print("You guessed correctly")
+            return quit_game("You win!")
+            break
         for i in get_current_guess(secret_word,lettersUsed):
             if get_current_guess(secret_word,lettersUsed) in secret_word:
                 return quit_game("You win!")
-        if is_secret_guessed(secret_word,lettersUsed) != True:
-            print("More guesses Needed")
-            
-    
-    
+    if is_secret_guessed(secret_word,lettersUsed) == True:
+        return quit_game("You win!")
+    else:
+        return quit_game("You lose..")
 
 def load_words(fileName): 
     """" This function takes in one argument "filName" and checks if the file exists, if not it will print the error message.
@@ -87,26 +106,28 @@ def load_words(fileName):
         with open(fileName, 'r') as wordFile:
             myWords = [line.strip() for line in wordFile]
             wordsPresent = len(myWords)
-            wordFile.close() ########################################################################### do I need to move this to after the except?
+            wordFile.close()
             return wordsPresent,  myWords
     except FileNotFoundError:
         print("This file does not exist!")
         
 def choose_secret_word():
-    """" Put explanation here """
+    """" This function takes the list of words from the load_words function and selects a random word from the list and returns it as a string  """
     wordList = load_words("words.txt")[1]
     randomWord =  [random.choice(wordList)]
     secretWord = ''.join(randomWord)
     return secretWord
 
 def second_game():
-    """" Put explanation here """
-    
+    """ this function takes the random word returned from the choose_secret_word function and calls the first_game, passing in the new random word to be plaed with """
     wordPlaying = choose_secret_word()
     first_game(wordPlaying)
     
 def quit_game(msg):
-    """" Put explanation here """
+    """"
+        The string value of the argument taken determines whether the amount of wins should be incrimented
+        and asks the users if they would like to play again.
+    """
     global wins
     global totalGames
     totalGames +=1
@@ -128,17 +149,19 @@ def quit_game(msg):
                 print("Follow the rules! Please enter only y/n")
 
 def game_stats(wins):
-    """" Put explanation here """
+    """" The argument taken must be an integer for this to work, the average is calculated from the wins/totalGames played,
+         the loses are calculated by subracting the wins from totalGames played. The returned value of wins and loses must equal
+         the amount of total games played. 
+    """
     loses = (totalGames-wins)
-    try:
-        averageInt = int((wins/totalGames)*100)
-        averageFloa = float((wins%totalGames))
-        completeAv = averageInt+averageFloa
-        thanks = "Thank you for playing! Here are your stats."
-        message = (("TotalGames",totalGames),("Wins", wins), ("Loses", loses), ("Average percent of wins", completeAv))
-        return thanks, message
-    except ZeroDivisionError:
-        print("It seems as if you havent played any games! I cant divide by zero!")
+    averageInt = int((wins/totalGames)*100)
+    averageFloa = float((wins%totalGames))
+    completeAv = int(averageInt+averageFloa)
+    thanks = "Thank you for playing! Here are your stats."
+    message = (("TotalGames",totalGames),("Wins", wins), ("Loses", loses), ("Average percent of wins", completeAv))
+    
+    return thanks, message
 
 
+""" Here is where the first game is called"""
 first_game(word)
