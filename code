@@ -66,10 +66,8 @@ def first_game(secret_word):
         print(get_current_guess(secret_word,lettersUsed))
         for i in get_current_guess(secret_word,lettersUsed):
             if get_current_guess(secret_word,lettersUsed) in secret_word:
-                wins +=1
                 return quit_game("You win!")     
     if is_secret_guessed(secret_word,lettersUsed) == True:
-        wins +=1
         return quit_game("You win!")
     else:
         return quit_game("You lose..")
