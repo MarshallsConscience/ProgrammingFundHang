@@ -38,10 +38,13 @@ def first_game(secret_word):
    
     """the code below give the conditions of how the user will and the conditions of the input, such as the user cant give an empty space
     it, the user cant repeat a letter and only takes the first character of any word written except the secret word written as a whole."""
-    print("The secret word has ",len(secret_word)," characters")
+     print("The secret word has ",len(secret_word)," characters")
     while guesses_remaining > 0:
         print("You have ",guesses_remaining," guesses left.")
         user_input= input().lower()
+        if user_input == secret_word.lower():
+            print("You guessed correctly")
+            return quit_game("You win!")
         while user_input == "":
             print("You can't have an empty guess! \nTry again")
             guesses_remaining -=1
@@ -52,25 +55,20 @@ def first_game(secret_word):
             guesses_remaining -=1
             print("You have ",guesses_remaining," guesses left.")
             user_input= input().lower()
-        while (len(user_input) != 1) and (user_input != secret_word):#####################################!##!!!!!
+        while (len(user_input) != 1) and (user_input != secret_word.lower):#####################################!##!!!!!
             print("You can't guess more than one letter unless you're trying to guess the secret word!")#####!!!!!
             guesses_remaining -=1
             print("You have ",guesses_remaining," guesses left.")
             user_input= input().lower()        
         lettersUsed.append((user_input[0]))
-        if user_input == secret_word:
-            print("You guessed correctly")
-            return quit_game("You win!")
-            break
         guesses_remaining -=1 
         print(get_current_guess(secret_word,lettersUsed))
         for i in get_current_guess(secret_word,lettersUsed):
             if get_current_guess(secret_word,lettersUsed) in secret_word:
-                return quit_game("You win!")     
-    if is_secret_guessed(secret_word,lettersUsed) == True:
-        return quit_game("You win!")
-    else:
-        return quit_game("You lose..")
+                return quit_game("You win!")
+        if is_secret_guessed(secret_word,lettersUsed) != True:
+            print("More guesses Needed")
+            
     
     
 
